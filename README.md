@@ -3,7 +3,7 @@
 
   - Requirements
     1. When a user visits the path "/", the app should display the text "Getting started"
----
+
   - Implementation (--Mine--)
     - Setup a Gemfile that requires Sinatra, Sinatra Contrib, and Erubis
     - Create an .rb file
@@ -22,7 +22,7 @@
 3. Adding an Index Page
   - Requirements
     1. When a user visits the home page, they should see a list of the documents in the CMS: history.txt, changes.txt and about.txt
----
+
   - Implementation (--Mine--)
     - Create a directory filesystem in root
       - Create files history.txt, changes.txt, and about.txt
@@ -32,3 +32,10 @@
         - Need to iterate through filesystem directory and obtain the name of all the files within it
         - Store those file names in an array
           - Display files in a view template named "home.erb"
+
+  - Implementation (--Launchschool--)
+    1. Create a data directory in the same directory as your Sinatra application. Within the data directory, create three text files with following names: history.txt, changes.txt and about.txt.
+
+    2. Use methods from the File class and the Dir class to get a list of documents. Together, these classes provide many useful methods for manipulating file names, file paths, and directories.
+
+    3. Use an ERB template to render the list of documents.
