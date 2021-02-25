@@ -3,5 +3,10 @@ require "sinatra"
 require "sinatra/reloader"
 
 get "/" do
-  "Getting started."
+
+  @files = Dir.entries("filesystem").select do |file| 
+    File.file?("filesystem/#{file}")
+  end
+
+  erb :home
 end
