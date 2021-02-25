@@ -59,3 +59,24 @@
     2. Add a new route that will handle viewing the contents of documents
     3. In the new route, read the contents of the document to be viewed
     4. Set an appropriate value for the `Content-Type` header to tell browsers to display response in plain text
+
+
+# 5. Adding Tests
+  - ## Requirements
+    1. Write tests for the routes that the application already supports, run them and you should see something similar
+
+  - ## Implementation (--Mine--)
+    1. Setup test file
+      - Within test file:
+        - Set `ENV["RACK_ENV"] = "test"`
+        - Require libraries that are needed
+        - Require rack application
+        - Require an application that subclasses from `Minitest::Test`
+        - Define a method `app` that returns an instance of a Rack application
+    2. Write tests
+      - Currently there are two routes defined: `"/"` and `"/:filename"`
+      - Test for `"/"` will assert for:
+        - Status code: 200
+        - Content-Type header: "text/plain"
+        - body: text within .txt file
+    3. Run tests
