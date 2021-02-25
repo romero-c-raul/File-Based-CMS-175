@@ -40,3 +40,16 @@
 
     3. Use an ERB template to render the list of documents.
 
+
+# 4. Viewing Text Files
+  - ## Requirements 
+    1. When a user visits the index page, they are presented with a list of links, one for each document in the CMS
+    2. When a user clicks on a document link in the index, they should be taken to a page that displays the content of the file whose name was clicked
+    3. When a user visits the path `/history.txt`, they will be presented with the content of the document `history.txt`
+    4. The browser should render a text file as a plain text file
+
+  - ## Implementation (--Mine--)
+    1. On `index.erb`, add an href attribute that points to the path that corresponds to that particular file
+    2. On `cms.rb`, add a route that returns the resource we are looking for ex: ` get "/:file" do` etc..
+      - Within this route, we need to obtain the contents of the file we are requesting and save it to a variable
+      - Structure the text in a readable format and return it
