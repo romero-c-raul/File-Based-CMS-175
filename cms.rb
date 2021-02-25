@@ -14,8 +14,9 @@ get "/" do
   erb :index
 end
 
-get "/:file" do
-  requested_file = params[:file]
+get "/:filename" do
+  file_path = root + "/data/#{params[:filename]}"
   headers['Content-Type'] = 'text/plain'
-  File.read(root + "/data/#{requested_file}")
+
+  File.read(file_path)
 end

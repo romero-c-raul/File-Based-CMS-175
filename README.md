@@ -53,3 +53,9 @@
     2. On `cms.rb`, add a route that returns the resource we are looking for ex: ` get "/:file" do` etc..
       - Within this route, we need to obtain the contents of the file we are requesting and save it to a variable
       - Structure the text in a readable format and return it
+
+  - ## Implementation (--Launchschool--)
+    1. Update views/index.erb to make each document name a link
+    2. Add a new route that will handle viewing the contents of documents
+    3. In the new route, read the contents of the document to be viewed
+    4. Set an appropriate value for the `Content-Type` header to tell browsers to display response in plain text
