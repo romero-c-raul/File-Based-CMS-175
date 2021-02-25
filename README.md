@@ -80,3 +80,12 @@
         - Content-Type header: "text/plain"
         - body: text within .txt file
     3. Run tests
+  
+  - ## Implementation (--Launchschool--)
+    1. Add minitest and rack-test to the project's Gemfile and run bundle install to install them.
+
+    2. Create a test directory within the project. Inside that directory, create a file called cms_test.rb and add to it any testing setup code.
+
+    3. Write a test that performs a GET request to / and validates the response has a successful response and contains the names of the three documents.
+
+    4. Write a test that performs a GET request to /history.txt (or another document of your choosing) and validates the response is successful and contains some of the content of that document.
