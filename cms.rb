@@ -3,6 +3,7 @@ require "bundler/setup"
 require "sinatra"
 require "sinatra/reloader"
 require "tilt/erubis"
+require "redcarpet"
 
 configure do
   enable :sessions
@@ -19,14 +20,26 @@ get "/" do
   erb :index
 end
 
+def render_markdown(content)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  markdown.render(content)
+end
+
 get "/:filename" do
-  file_path = root + "/data/" + params[:filename]
+  filename = params[:filename]
+  file_path = root + "/data/" + filename
 
   if File.file?(file_path)
-    headers['Content-Type'] = 'text/plain'    
-    File.read(file_path)
+    content = File.read(file_path)
+
+    if filename.match?(/.md$/) 
+      render_markdown(content)
+    else
+      headers['Content-Type'] = 'text/plain'    
+      content
+    end
   else
-    session[:message] = "#{params[:filename]} does not exist."
+    session[:message] = "#{filename} does not exist."
     redirect "/"
   end
 end
