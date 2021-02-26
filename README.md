@@ -96,7 +96,7 @@
     1. When a user attempts to view a document that does not exist, they should be redirected to the index page and shown the message: $DOCUMENT does not exist.
     2. When the user reloads the index page after seeing an error message, the message should go away
 
-  - # Implementation (--Mine--)
+  - ## Implementation (--Mine--)
     1. Enable sessions
     2. Determine if file exists within the `data` folder
       - If file exists, return the contents as before
@@ -107,7 +107,14 @@
       - To do this, we need to go to our index template, and display the message if a message exist.
         - After that, we need to delete the message so it does not re-appear everytime we refresh the page
 
-    Test: 
+    ### Tests (--Mine--): 
       - Write test for status code 302, since if file is not found we will be redirected
       - Write test for content type
       - Write test for body: should include message that the current file does not exist
+
+  - ## Implementation (--Launchschool--)
+      1. Check to see if a file exists before attempting to read its content
+        - We do this because this returns a 500 error, that the `not_found` route cannot handle
+      2. Enable sessions in application so we can persist data between requests
+      3. If a document doesn't exist, store an error message in the session and redirect the user.
+      4. In the index template, if there is an error message, print it out and delete it
