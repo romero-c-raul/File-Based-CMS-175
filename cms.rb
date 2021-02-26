@@ -25,21 +25,25 @@ def render_markdown(content)
   markdown.render(content)
 end
 
+def load_file_content(file_path)
+  content = File.read(file_path)
+
+  case File.extname(file_path)
+  when ".txt"
+    headers["Content-Type"] = 'text/plain'
+    content
+  when ".md"
+    render_markdown(content)
+  end
+end
+
 get "/:filename" do
-  filename = params[:filename]
-  file_path = root + "/data/" + filename
+  file_path = root + "/data/" + params[:filename]
 
   if File.file?(file_path)
-    content = File.read(file_path)
-
-    if filename.match?(/.md$/) 
-      render_markdown(content)
-    else
-      headers['Content-Type'] = 'text/plain'    
-      content
-    end
+    load_file_content(file_path)
   else
-    session[:message] = "#{filename} does not exist."
+    session[:message] = "#{params[:filename]} does not exist."
     redirect "/"
   end
 end
