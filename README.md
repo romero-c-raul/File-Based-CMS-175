@@ -134,3 +134,34 @@
     1. Rename about.txt to about.md Add some Markdown-formatted text to this file.
     2. Create a helper method called render_markdown that takes a single argument, the text to be processed, and returns rendered HTML.
     3. When a user is viewing a file with the extension md, render the file's content using RedCarpet and return the result as the response's body.
+
+
+- # 8. Editing Document Content
+  - ## Requirements
+    1. When a user views the index page, they should see an edit link next to each document name
+    2. When a user clicks the edit lnk, they should be taken to an edit page for the appropriate document
+    3. When a user views the edit page for a document, that document's content should appear within the text area
+    4. When a user edits the document's content and cliks "Save Changes" button, they are redirected to the index page and are shown a message: $Filename has been updated
+
+  - ## Implementation (--Mine--)
+    1. Add a link next to each document name that takes you to `"/:document/edit"`
+    2. Edit page of document should include:
+      - Edit content of `current file` header
+      - A textbox that has contents already in the file
+        - This is a form that will be sent using a post request
+    3. Create a route `get "/:document/edit"` that:
+      - Sets the session message to `"filename" has been updated`
+      - Redirects to index page
+
+    - ### Tests
+      - Write a test for routes:
+        - `get "/:filename/edit`
+          - Should return `202 status`
+          - Should include `Edit content of "current document" `
+        - `post "/:filename"`
+          - Should return `302 status`
+          - Store contents that were written to file (body of file?)
+
+          - redirect to header["Location"]
+          - Should return `202 status`
+          - Check that contents written on file are indeed the body of the file
