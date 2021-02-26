@@ -49,7 +49,7 @@ class CMSTest < Minitest::Test
   def test_editing_document
     get "/history.txt/edit"
 
-    assert_equal 200, last_response.body
+    assert_equal 200, last_response.status
     assert_includes last_response.body, "<textarea"
     assert_includes last_response.body, %q(<button type="submit")
   end
