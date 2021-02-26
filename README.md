@@ -118,3 +118,19 @@
       2. Enable sessions in application so we can persist data between requests
       3. If a document doesn't exist, store an error message in the session and redirect the user.
       4. In the index template, if there is an error message, print it out and delete it
+
+
+- # 7. Viewing Markdown Files
+  - ## Requirements
+    1. When a user views a document written in Markdown format, the browser should render the HTML version of the document's content
+
+  - ## Implementation (--Mine--)
+    1. Change `about.txt` to `about.md`
+    2. Define a helper method that returns a Redcarpet::Markdown instance
+    3. If you are requesting a markdown file
+      - Call method `render` on the `Redcarpet::Markdown` instance and pass the text as an argument
+
+  - ## Implementation (--Launchschool--)
+    1. Rename about.txt to about.md Add some Markdown-formatted text to this file.
+    2. Create a helper method called render_markdown that takes a single argument, the text to be processed, and returns rendered HTML.
+    3. When a user is viewing a file with the extension md, render the file's content using RedCarpet and return the result as the response's body.
