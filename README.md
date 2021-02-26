@@ -89,3 +89,20 @@
     3. Write a test that performs a GET request to / and validates the response has a successful response and contains the names of the three documents.
 
     4. Write a test that performs a GET request to /history.txt (or another document of your choosing) and validates the response is successful and contains some of the content of that document.
+
+
+# 6. Handling Requests for Nonexisting documents
+  - # Requirements
+    1. When a user attempts to view a document that does not exist, they should be redirected to the index page and shown the message: $DOCUMENT does not exist.
+    2. When the user reloads the index page after seeing an error message, the message should go away
+
+  - # Implementation (--Mine--)
+    1. Enable sessions
+    2. Determine if file exists within the `data` folder
+      - If file exists, return the contents as before
+      - If file does not exist:
+        - Add the key-value pair error: "This resource does not exist" to our session object
+        - redirect to "/"
+    3. When redirected, message should flash
+      - To do this, we need to go to our index template, and display the message if a message exist.
+        - After that, we need to delete the message so it does not re-appear everytime we refresh the page
