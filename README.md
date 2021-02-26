@@ -106,3 +106,8 @@
     3. When redirected, message should flash
       - To do this, we need to go to our index template, and display the message if a message exist.
         - After that, we need to delete the message so it does not re-appear everytime we refresh the page
+
+    Test: 
+      - Write test for status code 302, since if file is not found we will be redirected
+      - Write test for content type
+      - Write test for body: should include message that the current file does not exist

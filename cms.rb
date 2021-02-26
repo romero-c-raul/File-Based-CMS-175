@@ -32,7 +32,7 @@ get "/:filename" do
     
     File.read(file_path)
   else
-    session[:error] = "#{filename} does not exists."
+    session[:error] = "#{filename} does not exist."
     redirect "/"
   end
 end
