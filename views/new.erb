@@ -1,6 +1,7 @@
-<form action="/data" method="post">
-  <label for="new file">Add a new document:</label>
-  <br>
-  <input type="text" name="filename" id="filename" value="<%= params[:filename] || "Enter a new name!" %>">
-  <button>Create</button>
+<form method="post" action="/create">
+  <label for="filename">Add a new document:</label>
+  <div>
+    <input name="filename" id="filename" />
+    <button type="submit">Create</button>
+  </div>
 </form>

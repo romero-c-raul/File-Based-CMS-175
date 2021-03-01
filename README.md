@@ -200,3 +200,12 @@
     3. POST request will generate a new file within the data folder, the file's name being what was submitted into the form
       - Within the POST request, if body is empty, then re-render template and show error message
       - If body wasnt empty, redirect to index and show success message
+
+  - ## Implementation (--Launchschool--)
+    1. Add a new route that will handle the new document form
+    2. Add a view template and render it within the route created in #1. This template should include a form for entering the new document's name
+    3. Add a link to the new route within the index view template
+    4. Add a new route that the form from #2 will submit to
+      - If a filename is provided by the user, create the document, store the appropriate message in the session, and redirect the user to the index page
+      - If filename is not provided by the user, render the new form and display an error message
+    5. Make sure the routes are setting an appropriate status code
