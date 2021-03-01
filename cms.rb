@@ -44,6 +44,11 @@ get "/" do
   erb :index
 end
 
+get "/new" do
+
+  erb :new
+end
+
 get "/:filename" do
   file_path = File.join(data_path, params[:filename])
 
@@ -51,6 +56,20 @@ get "/:filename" do
     load_file_content(file_path)
   else
     session[:message] = "#{params[:filename]} does not exist."
+    redirect "/"
+  end
+end
+
+post "/data" do
+  filename = params[:filename].strip
+
+  if filename.empty?
+    session[:message] = "A name is required."
+    erb :new
+  else
+    file_path = File.join(data_path, filename)
+    File.new(file_path, "w")
+    session[:message] = "#{params[:filename]} was created."
     redirect "/"
   end
 end

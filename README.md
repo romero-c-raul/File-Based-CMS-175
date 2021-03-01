@@ -184,3 +184,19 @@
     1. Add CSS to a new file called `cms.css` in your project
     2. Create a layout called `layout.erb`, and link to the `cms.css` file from it
     3. When viewing a text file, no surrounding HTML code should be sent in the response
+
+
+- # 12. Creating New Documents
+  - ## Requirements
+    1. When a user views the index page, they should see a link that says "New Document".
+    2. When a user clicks the "New Document" link, they should be taken to a page with a text input labeled "Add a new document:" and a submit button labeled "Create":
+    3. When a user enters a document name and clicks "Create", they should be redirected to the index page. The name they entered in the form should now appear in the file list. They should see a message that says "$FILENAME was created.", where $FILENAME is the name of the document just created
+    4. If a user attempts to create a new document without a name, they form should be re-displayed and a message should say "A name is required"
+
+  - ## Implementation (--Mine--)
+    1. Create a new route "/new"
+    2. Within this route, we will create a text box and a submit button that will submit a POST request
+       to "/index"
+    3. POST request will generate a new file within the data folder, the file's name being what was submitted into the form
+      - Within the POST request, if body is empty, then re-render template and show error message
+      - If body wasnt empty, redirect to index and show success message
