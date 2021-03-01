@@ -96,9 +96,10 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, "new content"
   end
 
-  def test_new_document_template
+  def test_view_new_document_form
     #skip
     get "/new"
+
     assert_equal 200, last_response.status
     assert_includes last_response.body, "<input"
     assert_includes last_response.body, %q(<button type="submit")
@@ -121,8 +122,6 @@ class CMSTest < Minitest::Test
     #skip
     post "/create", filename: ""
     assert_equal 422, last_response.status
-    assert_includes last_response.body, "<input"
-    assert_includes last_response.body, %q(<button type="submit")
+    assert_includes last_response.body, "A name is required"
   end
-
 end
