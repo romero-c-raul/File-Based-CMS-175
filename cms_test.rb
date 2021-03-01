@@ -1,27 +1,25 @@
 ENV["RACK_ENV"] = "test"
 
+require "fileutils"
+
 require "minitest/autorun"
 require "rack/test"
-require "fileutils"
 
 require_relative "cms"
 
 class CMSTest < Minitest::Test
   include Rack::Test::Methods
 
+  def app
+    Sinatra::Application
+  end
+
   def setup
     FileUtils.mkdir_p(data_path)
-    create_document "history.txt", "Yukihiro Matsumoto dreams up Ruby."
-    create_document "about.md", "# Ruby is..."
-    create_document "changes.txt"
   end
 
   def teardown
     FileUtils.rm_rf(data_path)
-  end
-
-  def app
-    Sinatra::Application
   end
 
   def create_document(name, content = "")
@@ -32,6 +30,9 @@ class CMSTest < Minitest::Test
   end
 
   def test_index
+    create_document "about.md"
+    create_document "changes.txt"
+
     get "/"
 
     assert_equal 200, last_response.status
@@ -40,15 +41,17 @@ class CMSTest < Minitest::Test
     assert_includes last_response.body, "changes.txt"
   end
 
-  def test_file
+  def test_viewing_text_document
+    create_document "history.txt", "Ruby 0.95 is released"
 
     get "/history.txt"
+
     assert_equal 200, last_response.status
     assert_equal "text/plain", last_response["Content-Type"]
-    assert_includes last_response.body, "Yukihiro Matsumoto dreams up Ruby."
+    assert_includes last_response.body, "Ruby 0.95 is released"
   end
 
-  def test_file_does_not_exist
+  def test_document_not_found
     get "/random.txt"
     assert_equal 302, last_response.status
     
@@ -60,7 +63,9 @@ class CMSTest < Minitest::Test
     refute_includes last_response.body, "random.txt does not exist."
   end
 
-  def test_markdown_file
+  def test_viewing_markdown_file
+    create_document "about.md", "# Ruby is..."
+
     get "/about.md"
 
     assert_equal 200, last_response.status
@@ -69,7 +74,9 @@ class CMSTest < Minitest::Test
   end
 
   def test_editing_document
-    get "/history.txt/edit"
+    create_document "changes.txt"
+
+    get "/changes.txt/edit"
 
     assert_equal 200, last_response.status
     assert_includes last_response.body, "<textarea"
@@ -88,5 +95,4 @@ class CMSTest < Minitest::Test
     assert_equal 200, last_response.status
     assert_includes last_response.body, "new content"
   end
-
 end
