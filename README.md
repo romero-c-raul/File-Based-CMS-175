@@ -201,6 +201,17 @@
       - Within the POST request, if body is empty, then re-render template and show error message
       - If body wasnt empty, redirect to index and show success message
 
+    - ## Tests
+      - Write a tests for the get "/new" route and post "/create" route
+        - For get "/new":
+          - Check status code is 200
+          - Check that "Add a new document:" is included on page
+        - For post "/create"
+          - Check that status code is 302
+          - Get new location that we are being redirected to
+          - Make sure that location is the "/" directory
+          - Make sure file that we just created exists
+
   - ## Implementation (--Launchschool--)
     1. Add a new route that will handle the new document form
     2. Add a view template and render it within the route created in #1. This template should include a form for entering the new document's name
