@@ -165,3 +165,22 @@
           - redirect to header["Location"]
           - Should return `202 status`
           - Check that contents written on file are indeed the body of the file
+
+
+- # 10. Adding Global Style and Behavior
+  - ## Requirements
+    1. When a message is displayed to a user, that message should appear against a yellow background
+    2. Messages should disappear if the page they appear on is reloaded
+    3. Text files should continue to be displayed by the browser as plain text
+    4. The entire site (including markdown files, but not text files) should be displayed in a sans-serif typeface
+
+  - ## Implementation (--Mine--)
+    1. Create a `application.css`
+      - Within this file, I will be able to modify the styling of flash messages
+        - Add a class to flash message, and add the background color I need on stylesheet
+      - This file will also determine which font I will be using throughout the whole file
+
+  - ## Implementation (--Launchschool--)
+    1. Add CSS to a new file called `cms.css` in your project
+    2. Create a layout called `layout.erb`, and link to the `cms.css` file from it
+    3. When viewing a text file, no surrounding HTML code should be sent in the response
