@@ -227,4 +227,14 @@
     1. Whenever a user views the index page, they should see a delete button next to each document
     2. When a user clicks a delete button, the application should delete the appropriate document and display a message: "$FILENAME was deleted."
   
-  
+  - ## Implementation (--Launchschool--)
+    1. Add a form to each `li` within `views/index.erb`. This form needs to only contain a submit button.
+    2. Create a route that the forms created in #1 will submit to. Within this route, delete the appropriate document, store a message in the session, and redirect the user back to the index page.
+
+  - ## Tests
+    - Write a test for post "/:filename/delete"
+      - Status code 302
+      - Obtain the new location you will be redirected to
+      - Check that flash message is included in body
+      - Redirect to "/"
+      - Check that the file you deleted is not there anymore
