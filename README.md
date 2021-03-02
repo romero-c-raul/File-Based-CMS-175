@@ -285,3 +285,11 @@
       - For page signout
         - Make sure you are redirected to sign in page
         - Make sure there is a flash message on sign in page
+
+  - ## Implementation (--Launchschool--)
+    1. Create a route that renders a view template containing a sign in form.
+    2. Create a route that the form from #1 submits to.
+      - If the credentials are correct, store the username and the success message in the session and redirect to the index page.
+      - If the credentials are not correct, rerender the sign in form and display an error message.
+    3. Add some code to the index page to display a "Sign In" or "Sign Out" button and message based on whether the user is signed in.
+    4. Create a route that deletes the username from the session, adds a message to the session, and redirects the user to the index page. Point the "Sign Out" button created in #3 at this route.
