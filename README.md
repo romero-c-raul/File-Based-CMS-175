@@ -220,3 +220,11 @@
       - If a filename is provided by the user, create the document, store the appropriate message in the session, and redirect the user to the index page
       - If filename is not provided by the user, render the new form and display an error message
     5. Make sure the routes are setting an appropriate status code
+
+
+- # 13. Deleting Documents
+  - ## Requirements
+    1. Whenever a user views the index page, they should see a delete button next to each document
+    2. When a user clicks a delete button, the application should delete the appropriate document and display a message: "$FILENAME was deleted."
+  
+  
