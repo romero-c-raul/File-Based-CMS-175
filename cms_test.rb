@@ -141,4 +141,44 @@ class CMSTest < Minitest::Test
     refute_includes last_response.body, "test.md"
   end
 
+  def test_signin_form
+    get "/users/signin"
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, "<input"
+    assert_includes last_response.body, 'button type="submit"'
+  end
+
+  def test_signin
+    #skip
+    post "/users/signin", username: "admin", password: "secret"
+    assert_equal 302, last_response.status
+
+    get last_response["Location"]
+    assert_includes last_response.body, "Welcome!"
+    assert_includes last_response.body, "Signed in as admin"
+  end
+
+  def test_signin_with_bad_credentials
+    #skip
+    post "/users/signin", username: "bad", password: "credentials"
+    assert_equal 422, last_response.status
+    assert_includes last_response.body, "Invalid credentials"
+    assert_includes last_response.body, "bad"
+  end
+
+  def test_signout
+    #skip
+    post "/users/signin", username: "admin", password: "secret"
+    assert_equal 302, last_response.status
+
+    get last_response["Location"]
+    assert_includes last_response.body, "Welcome"
+
+    post "/users/signout"
+    get last_response["Location"]
+
+    assert_includes last_response.body, "You have been signed out"
+    assert_includes last_response.body, "Sign In"
+  end
 end
