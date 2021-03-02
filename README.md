@@ -238,3 +238,50 @@
       - Check that flash message is included in body
       - Redirect to "/"
       - Check that the file you deleted is not there anymore
+
+
+- # 14. Signing In and Out
+  - ## Requirements
+    1. When a signed-out user views the index page of the site, they should see a "Sign In" button
+    2. When a user clicks the "Sign In" button, they should be taken to a new page with a sign in form. The form should contain a text input labeled "Username" and a password input labeled "Password".
+      - The form should also contain a submit button labeled "Sign In":
+    3. When a user enters the username "admin" and password secret into the sign in form and clicks the "Sign In" button, they should be signed in and redirected to the index page.
+      - A message should display that says "Welcome!"
+    4. When a user enters any other username and password into the sign in form and clicks the "Sign in" button, the sign in form should be redisplayed and an error message "Invalid Credentials" should be shown. The username they enetered into the form should appear in the username input
+    5. When a signed in user views the index page, they should see a message at the botton of the page that says "Signed in as $USERNAME.", followed by a button labeled "Sign Out". 
+    6. When a signed-in user clicks this "Sign Out" button, they should be signed out of the application and redirected to the index page of the site.
+      - They should see a message that says "You've been signed out."
+
+  - ## Implementation (--Mine--)
+    1. When trying to access the home directory, redirect user to `"/users/signin"` if the session does not indicate that user is logged in
+    2. Create a view template `sign_in.erb`
+      - In this template we will have two forms and a button
+        - The action for these forms will be `"/users"` and we will send a post request
+    3. Create a route `post "/session"` that:
+      - Establishes the allowed username and password
+      - Compares those to what was submitted in the form
+      - If the user/passwords match:
+        - Redirect to home directory: 
+          - show a flash message saying welcome (edit `index.erb`)
+          - Add a message to the botton of the page (edit `index.erb`)
+      - If user/password don't match:
+        - Re-render sign in page
+        - Add a flash message to our session
+    4. Edit `"index.erb"` to add a form that can log you off
+      - This form will submit a post request that will change your sign in status on the session to false
+    
+    - ## Tests
+      - Write tests for signing page, post request submitting user/password, and page signout
+      - For signing page:
+        - Try to view index page
+        - Make sure you are being redirected (status code 303)
+        - Make sure new location is sign in page
+      - For post request
+        - Write two tests
+          - One that makes sure you re-render sign in page if usr/password are wrong
+            - Make sure there is a flash message for re-rendered page
+          - One that makes sure you are redirected to index if usr/password match
+            - Make sure there is a flash message for index page
+      - For page signout
+        - Make sure you are redirected to sign in page
+        - Make sure there is a flash message on sign in page
