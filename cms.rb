@@ -20,10 +20,6 @@ def data_path
   end
 end
 
-before do
-  @users = YAML.load_file('users.yml')
-end
-
 def render_markdown(content)
   markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
   markdown.render(content)
@@ -52,8 +48,13 @@ def require_signed_in_user
   end
 end
 
-def valid_credentials?(username, password)
-  @users[username] == password
+def load_user_credentials
+  credentials_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/users.yml", __FILE__)
+  else
+    File.expand_path("../users.yml", __FILE__)
+  end
+  YAML.load_file(credentials_path)
 end
 
 get "/" do
@@ -70,7 +71,10 @@ get "/users/signin" do
 end
 
 post "/users/signin" do
-  if valid_credentials?(params[:username], params[:password])
+  credentials = load_user_credentials
+  username = params[:username]
+
+  if credentials.key?(username) && credentials[username] == params[:password]
     session[:username] = params[:username]
     session[:message] = "Welcome!"
     redirect "/"
