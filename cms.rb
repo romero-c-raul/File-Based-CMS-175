@@ -67,7 +67,16 @@ post "/users/signout" do
 end
 
 get "/new" do
+  user_signed_in?
+
   erb :new
+end
+
+def user_signed_in?
+  unless session[:username]
+    session[:message] = "You must be signed in to do that"
+    redirect "/"
+  end
 end
 
 get "/:filename" do
@@ -82,6 +91,8 @@ get "/:filename" do
 end
 
 post "/create" do
+  user_signed_in?
+
   filename = params[:filename].strip
 
   if filename.empty?
@@ -99,6 +110,8 @@ post "/create" do
 end
 
 get "/:filename/edit" do
+  user_signed_in?
+
   file_path = File.join(data_path, params[:filename])
 
   @filename = params[:filename]
@@ -108,6 +121,8 @@ get "/:filename/edit" do
 end
 
 post "/:filename/delete" do
+  user_signed_in?
+
   file_path = File.join(data_path, params[:filename])
   
   File.delete(file_path)
@@ -117,6 +132,8 @@ post "/:filename/delete" do
 end
 
 post "/:filename" do
+  user_signed_in?
+
   file_path = File.join(data_path, params[:filename])
 
   File.write(file_path, params[:content])

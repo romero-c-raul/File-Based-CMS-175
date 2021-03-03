@@ -293,3 +293,27 @@
       - If the credentials are not correct, rerender the sign in form and display an error message.
     3. Add some code to the index page to display a "Sign In" or "Sign Out" button and message based on whether the user is signed in.
     4. Create a route that deletes the username from the session, adds a message to the session, and redirects the user to the index page. Point the "Sign Out" button created in #3 at this route.
+
+
+- # 16. Restricting Actions to Only Signed-In Users
+  - ## Requirements
+    1. When a signed-out user attempts to perform the following actions, they should be redirected back to the index and shown a message that says "You must be signed in to do that":
+      - Visit the edit page for a document
+      - Submit changes to a document
+      - Visit the new document page
+      - Submit the new document form
+      - Delete a document
+
+  - ## Implementation (--Mine--)
+    - Create a method that checks if user is signed in
+      - This method will be added to the routes:
+        - get "/:filename/edit"       --> Visiting edit page
+        - post "/:filename"           --> Submit changes to a document
+        - get "/new"                  --> Visit new document page
+        - post "/create"              --> Submit new document form
+        - post "/:filename/delete     --> Delete a document
+    - If user is signed in:
+      - Proceed 
+    - If user is not signed in
+      - Set session message to "You must be signed in to do that"
+      - redirect to home page 
