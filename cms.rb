@@ -1,5 +1,7 @@
 require "bundler/setup"
 
+require "yaml"
+
 require "sinatra"
 require "sinatra/reloader"
 require "tilt/erubis"
@@ -16,6 +18,10 @@ def data_path
   else
     File.expand_path("../data", __FILE__)
   end
+end
+
+before do
+  @users = YAML.load_file('users.yml')
 end
 
 def render_markdown(content)
@@ -46,6 +52,10 @@ def require_signed_in_user
   end
 end
 
+def valid_credentials?(username, password)
+  @users[username] == password
+end
+
 get "/" do
   pattern = File.join(data_path, "*")
   @files = Dir.glob(pattern).map do |path|
@@ -60,7 +70,7 @@ get "/users/signin" do
 end
 
 post "/users/signin" do
-  if params[:username] == "admin" && params[:password] == "secret"
+  if valid_credentials?(params[:username], params[:password])
     session[:username] = params[:username]
     session[:message] = "Welcome!"
     redirect "/"

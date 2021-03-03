@@ -317,3 +317,21 @@
     - If user is not signed in
       - Set session message to "You must be signed in to do that"
       - redirect to home page 
+
+
+- # 17. Storing User Accounts in External File
+  - ## Requirements
+    1. An administrator should be able to modify the list of users who may sign into the application by editing a configuration file using their text editor.
+
+  - ## Implementation (--Mine--)
+    1. Create a YAML file in the data folder
+      - Within this file, user credentials will be stored in a hash with usernames as keys and passwords as values
+    2. Modify post "/users/signin" route:
+      - Write a helper method that determines if given username/password pair exists within the YAML file
+      - If username/password combo exists:
+        - Set the session's username to the username submitted in the form
+        - Set the sessions message to "Welcome"
+      - Else
+        - Set session's message to "Invalid Credentials"
+        - Set status to 422
+        - Re-render sign-in page
