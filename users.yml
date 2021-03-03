@@ -1,4 +1,4 @@
 {
-  admin: secret,
-  raul: romero,
+  admin: $2a$12$vi.mXlFkoV4oTh2dJXyrp.oxU54bhxG2LMJntgan4.f79vHs8BxdG,
+  raul: $2a$12$nGpN/SaOPw/NgYDRPh0KhefT0EXDebFEUsScBs1wfwP1zA2cfTreu
 }

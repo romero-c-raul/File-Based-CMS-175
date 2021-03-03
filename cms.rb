@@ -6,6 +6,7 @@ require "sinatra"
 require "sinatra/reloader"
 require "tilt/erubis"
 require "redcarpet"
+require "bcrypt"
 
 configure do
   enable :sessions
@@ -74,7 +75,7 @@ post "/users/signin" do
   credentials = load_user_credentials
   username = params[:username]
 
-  if credentials.key?(username) && credentials[username] == params[:password]
+  if credentials.key?(username) && BCrypt::Password.new(credentials[username]) == params[:password]
     session[:username] = params[:username]
     session[:message] = "Welcome!"
     redirect "/"
