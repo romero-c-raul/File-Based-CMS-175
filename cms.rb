@@ -35,6 +35,17 @@ def load_file_content(file_path)
   end
 end
 
+def user_signed_in?
+  session.key?(:username)
+end
+
+def require_signed_in_user
+  unless user_signed_in?
+    session[:message] = "You must be signed in to do that"
+    redirect "/"
+  end
+end
+
 get "/" do
   pattern = File.join(data_path, "*")
   @files = Dir.glob(pattern).map do |path|
@@ -67,16 +78,9 @@ post "/users/signout" do
 end
 
 get "/new" do
-  user_signed_in?
+  require_signed_in_user
 
   erb :new
-end
-
-def user_signed_in?
-  unless session[:username]
-    session[:message] = "You must be signed in to do that"
-    redirect "/"
-  end
 end
 
 get "/:filename" do
@@ -91,7 +95,7 @@ get "/:filename" do
 end
 
 post "/create" do
-  user_signed_in?
+  require_signed_in_user
 
   filename = params[:filename].strip
 
@@ -110,7 +114,7 @@ post "/create" do
 end
 
 get "/:filename/edit" do
-  user_signed_in?
+  require_signed_in_user
 
   file_path = File.join(data_path, params[:filename])
 
@@ -121,7 +125,7 @@ get "/:filename/edit" do
 end
 
 post "/:filename/delete" do
-  user_signed_in?
+  require_signed_in_user
 
   file_path = File.join(data_path, params[:filename])
   
@@ -132,7 +136,7 @@ post "/:filename/delete" do
 end
 
 post "/:filename" do
-  user_signed_in?
+  require_signed_in_user
 
   file_path = File.join(data_path, params[:filename])
 
