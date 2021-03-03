@@ -337,3 +337,11 @@
         - Re-render sign-in page
 
   - ## Implementation (--Launchschool--)
+    - Create a file called users.yml and add a few users to it. Use the format specified above in the hint.
+    - When a user is attempting to sign in, load the file created in #1 and use it to validate the user's credentials.
+    - Modify the application to use test/users.yml to load user credentials during testing.
+
+
+- # 18. Storing Hashed Passwords
+  - ## Requirements
+    1. User passwords must be hashed using bcrypt before being stored so that raw passwords are not being stored anywhere
